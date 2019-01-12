@@ -1,6 +1,7 @@
 package com.cadcli.test_compasso.controller;
 
 import com.cadcli.test_compasso.entity.Customer;
+import com.cadcli.test_compasso.exceptions.CustomerNotFoundException;
 import com.cadcli.test_compasso.service.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer")
@@ -28,9 +30,12 @@ public class CustomerController {
 
     @GetMapping(path="/{id}")
     @ApiOperation(value = "Pesquisar cliente por seu ID")
-    public ResponseEntity<Customer> pesquisarCliente(@PathVariable("id")  Long id) throws Exception{
-        Customer customer = service.pesquisarClientePorId(id);
-        return ResponseEntity.ok().body(customer);
+    public ResponseEntity pesquisarCliente(@PathVariable("id") Long id) {
+            Optional customer = service.pesquisarClientePorId(id);
+            if(!customer.isPresent()){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente #"+ id +" não encontrado");
+            }
+            return ResponseEntity.ok().body(customer);
     }
 
     @GetMapping(produces = "application/json")

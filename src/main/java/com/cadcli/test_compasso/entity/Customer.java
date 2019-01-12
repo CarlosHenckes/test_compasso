@@ -10,6 +10,8 @@ import java.time.Period;
 @Entity
 public class Customer implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -77,8 +79,8 @@ public class Customer implements Serializable {
     }
 
     public int getAge(){
-        if (getBirthDate() != null) {
-            return Period.between(getBirthDate(), LocalDate.now()).getYears();
+        if (this.birthDate != null) {
+            return Period.between(this.birthDate, LocalDate.now()).getYears();
         } else {
             return 0;
         }
