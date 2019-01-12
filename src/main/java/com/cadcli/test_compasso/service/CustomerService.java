@@ -1,6 +1,7 @@
 package com.cadcli.test_compasso.service;
 
 import com.cadcli.test_compasso.entity.Customer;
+import com.cadcli.test_compasso.exceptions.CustomerNotFoundException;
 import com.cadcli.test_compasso.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,8 @@ public class CustomerService {
         return repository.findByNameContainingIgnoreCaseOrderByNameAsc(nome);
     }
 
-    public Customer pesquisarClientePorId(Long id) throws Exception{
-        return repository.findById(id).orElseThrow(() -> new Exception("Cliente não encontrado"));
+    public Customer pesquisarClientePorId(Long id) {
+        return repository.findById(id).orElseThrow(() -> new CustomerNotFoundException("Cliente não encontrado"));
     }
 
     public void excluirCliente(Long id){

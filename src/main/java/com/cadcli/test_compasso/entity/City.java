@@ -3,7 +3,7 @@ package com.cadcli.test_compasso.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity @Table
+@Entity
 public class City implements Serializable {
 
     @Id
