@@ -9,7 +9,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 public class TestCompassoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestCompassoApplication.class, args);
+
+		SpringApplication application = new SpringApplication(TestCompassoApplication.class);
+		application.setAddCommandLineProperties(false);
+		application.run(args);
 	}
 
 }
